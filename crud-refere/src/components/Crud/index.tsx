@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   BoxButtonStyled,
@@ -19,55 +18,84 @@ import {
 } from "./styles";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useForm } from "react-hook-form";
-import { AddClient, api } from "../../lib/axios";
+import { AddClient, api, EditClient } from "../../lib/axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./validate";
 import { FormValues } from "./interface";
+import MenuItem from "@mui/material/MenuItem";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Dayjs } from "dayjs";
+import TextField from "@mui/material/TextField";
 
 function Crud() {
-  const [startDate, setStartDate] = useState();
+  // const [startDate, setStartDate] = useState();
+  const [value, setValue] = React.useState<Dayjs | null>(null);
   const [selectVehicle, setSelectVehicle] = useState("");
   const [gender, setGender] = useState("");
   const [year, setYear] = useState("");
   const [vehicles, setVehicles] = useState([]);
   const [years, setYears] = useState([]);
+  const [client, setClient] = useState<FormValues>();
+
+  let clientId = localStorage.getItem("client-crud");
 
   useEffect(() => {
     api.get("vehicules").then((response: any) => {
       setVehicles(response.data);
     });
+  }, []);
 
+  useEffect(() => {
     api.get("years").then((response: any) => {
       setYears(response.data);
     });
   }, []);
 
+  useEffect(() => {
+    if (clientId) {
+      api.get(`dados/${clientId}`).then((response: any) => {
+        setClient(response.data);
+      });
+    }
+  }, [clientId]);
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: yupResolver(schema),
+    // resolver: yupResolver(schema),
+    defaultValues: client,
   });
+
+  useEffect(() => {
+    // reset form with user data
+    reset(client);
+  }, [client]);
 
   const onSubmit = (e: any) => {
     const values = {
-      name: e.name,
-      birthDate: startDate,
-      cpf: e.cpf,
-      gender: e.gender,
-      vehicle: e.vehicle,
-      plate: e.plate,
-      manufactureYear: e.manufactureYear,
+      name: e.name ? e.name : client?.name,
+      birthDate: value ? value : client?.birthDate,
+      cpf: e.cpf ? e.cpf : client?.cpf,
+      gender: e.gender ? e.gender : client?.gender,
+      vehicle: e.vehicle ? e.vehicle : client?.vehicle,
+      plate: e.plate ? e.plate : client?.plate,
+      manufactureYear: e.manufactureYear
+        ? e.manufactureYear
+        : client?.manufactureYear,
     };
-    AddClient(values);
+    clientId ? EditClient(values, clientId) : AddClient(values);
+    localStorage.clear();
     window.location.reload();
   };
 
   const handleChangeVehicle = (event: SelectChangeEvent) => {
     setSelectVehicle(event.target.value);
   };
-
   const handleChangeYear = (event: SelectChangeEvent) => {
     setYear(event.target.value);
   };
@@ -76,31 +104,33 @@ function Crud() {
     setGender(event.target.value);
   };
 
+  const editCancel = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <SectionStyled>
       <FormStyled onSubmit={handleSubmit(onSubmit)}>
         <ItemFormStyled>
           <LabelStyled htmlFor="name">Nome:</LabelStyled>
-          <InputNameStyled
-            id="name"
-            placeholder=""
-            variant="outlined"
-            {...register("name")}
-          />
+          <InputNameStyled id="name" variant="outlined" {...register("name")} />
           {errors?.name && (
             <ErrorMessageStyled>{errors.name.message}</ErrorMessageStyled>
           )}
         </ItemFormStyled>
         <ItemFormStyled>
           <LabelStyled htmlFor="birthDate">Data de Nascimento:</LabelStyled>
-          <InputBirthDateStyled
-            dateFormat="dd/MM/yyyy"
-            showTimeSelect
-            id="birthDate"
-            selected={startDate}
-            {...register("birthDate")}
-            onChange={(date: any) => setStartDate(date)}
-          />
+
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
+            <DatePicker
+              value={client?.birthDate ? client?.birthDate : value}
+              onChange={(newValue: any) => {
+                setValue(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           {errors?.birthDate && (
             <ErrorMessageStyled>{errors.birthDate.message}</ErrorMessageStyled>
           )}
@@ -119,12 +149,10 @@ function Crud() {
         </ItemFormStyled>
         <ItemFormStyled>
           <LabelStyled htmlFor="gender">Gênero:</LabelStyled>
-
           <InputGenderStyled>
             <Select
-              labelId="demo-select-small"
-              id="demo-select-small"
-              value={gender}
+              id="gender"
+              value={client?.gender ? client?.gender : gender}
               {...register("gender")}
               onChange={handleChangeGender}
             >
@@ -141,7 +169,7 @@ function Crud() {
           <InputVehiculeStyled>
             <Select
               id="vehicle"
-              value={selectVehicle}
+              value={client?.vehicle ? client?.vehicle : selectVehicle}
               {...register("vehicle")}
               onChange={handleChangeVehicle}
               displayEmpty
@@ -180,7 +208,7 @@ function Crud() {
           <InputyearStyled>
             <Select
               id="manufactureYear"
-              value={year}
+              value={client?.manufactureYear ? client?.manufactureYear : year}
               {...register("manufactureYear")}
               onChange={handleChangeYear}
               displayEmpty
@@ -203,8 +231,8 @@ function Crud() {
           )}
         </ItemFormStyled>
         <BoxButtonStyled className="button-position">
-          <Button variant="text" type="reset">
-            Limpar
+          <Button variant="text" type="reset" onClick={editCancel}>
+            Cancelar
           </Button>
           <Button variant="contained" type="submit">
             Salvar

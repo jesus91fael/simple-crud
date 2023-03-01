@@ -7,4 +7,6 @@ export interface FormValues {
   plate: string
   late: string
   manufactureYear: string
+  id: number
 };
+

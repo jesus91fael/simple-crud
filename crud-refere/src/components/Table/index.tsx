@@ -10,7 +10,7 @@ import {
   TableStyled,
   TheadStyled,
 } from "./styles";
-import SaveIcon from "@mui/icons-material/Save";
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { api } from "../../lib/axios";
 import { calculateBirthDate, maskCpf, maskPlate } from "../../utils/util";
@@ -36,16 +36,23 @@ function Table() {
       getData();
   })
   };
-  
+
+  const editClient = (id: string) =>{
+    localStorage.setItem('client-crud', id)
+    window.location.reload();
+  }
+
   return (
     <SectionStyled>
       <TableStyled>
         <TheadStyled>
+        <tr>
           <th>Nome</th>
           <th>Idade</th>
           <th>CPF</th>
           <th>Placa do Veículo</th>
           <ButtonsTitleCelStyled>Editar</ButtonsTitleCelStyled>
+          </tr>
         </TheadStyled>
         <tbody>
           {dados.map((element: any, index: number) => {
@@ -56,11 +63,11 @@ function Table() {
                 <CellStyled>{maskCpf(element.cpf)}</CellStyled>
                 <CellStyled>{maskPlate(element.plate)}</CellStyled>
                 <ButtonsCelStyled>
-                  <IconButtonSaveStyled aria-label="delete">
-                    <SaveIcon />
+                  <IconButtonSaveStyled aria-label="delete" onClick={() => editClient(element.id)}>
+                    <EditIcon  />
                   </IconButtonSaveStyled>
-                  <IconButtonDeleteStyled aria-label="delete">
-                    <DeleteIcon onClick={() => deleteDado(element.id)}/>
+                  <IconButtonDeleteStyled aria-label="delete" onClick={() => deleteDado(element.id)}>
+                    <DeleteIcon />
                   </IconButtonDeleteStyled>
                 </ButtonsCelStyled>
               </RowStyled>

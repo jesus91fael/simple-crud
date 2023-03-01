@@ -18,7 +18,7 @@ export const AddClient = (xMeet: object) => {
 };
 
 
-export const EditClient = (dados: object, id: number) => {
+export const EditClient = (dados: object, id: any) => {
   let options = {
     method: "PUT",
     headers: {
