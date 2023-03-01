@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ButtonsCelStyled,
   ButtonsTitleCelStyled,
@@ -12,11 +12,31 @@ import {
 } from "./styles";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TableProps } from "./interface";
+import { api } from "../../lib/axios";
+import { calculateBirthDate, maskCpf, maskPlate } from "../../utils/util";
 
-function Table({ dados, onChange, onDelete }: TableProps) {
-  console.log("aqui", dados);
+function Table() {
+  const [dados, setDados] = useState([]);
 
+  useEffect(() => {
+    api.get("dados").then((response: any) => {
+      setDados(response.data)
+    })
+  }, [])
+
+  const getData = () => {
+    api.get("dados").then((response: any) => {
+      setDados(response.data)
+    })
+}
+
+  const deleteDado = (id: number) => {
+    api.delete(`dados/${id}`)
+    .then(() => {
+      getData();
+  })
+  };
+  
   return (
     <SectionStyled>
       <TableStyled>
@@ -28,19 +48,19 @@ function Table({ dados, onChange, onDelete }: TableProps) {
           <ButtonsTitleCelStyled>Editar</ButtonsTitleCelStyled>
         </TheadStyled>
         <tbody>
-          {dados.map((element: any) => {
+          {dados.map((element: any, index: number) => {
             return (
-              <RowStyled key={element.id}>
+              <RowStyled key={index}>
                 <CellStyled>{element.name}</CellStyled>
-                <CellStyled>{element.birthDate}</CellStyled>
-                <CellStyled>{element.cpf}</CellStyled>
-                <CellStyled>{element.plate}</CellStyled>
+                <CellStyled>{calculateBirthDate(element.birthDate)}</CellStyled>
+                <CellStyled>{maskCpf(element.cpf)}</CellStyled>
+                <CellStyled>{maskPlate(element.plate)}</CellStyled>
                 <ButtonsCelStyled>
                   <IconButtonSaveStyled aria-label="delete">
                     <SaveIcon />
                   </IconButtonSaveStyled>
                   <IconButtonDeleteStyled aria-label="delete">
-                    <DeleteIcon onClick={onDelete(id)}/>
+                    <DeleteIcon onClick={() => deleteDado(element.id)}/>
                   </IconButtonDeleteStyled>
                 </ButtonsCelStyled>
               </RowStyled>
