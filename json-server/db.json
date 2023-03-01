@@ -1,0 +1,48 @@
+{
+  "dados": [
+    {
+      "id": 1,
+      "name": "Tião",
+      "birthDate": "16-01-2001",
+      "cpf":"11111111111",
+      "vehicule": "Gol",
+      "gender": "M",
+      "plate": "MAC0A123",
+      "manufactureYear": "1996"
+    },
+    {
+      "id": 2,
+      "name": "Maria João",
+      "birthDate": "16-01-2001",
+      "cpf":"11111111111",
+      "vehicule": "Palio",
+      "gender": "F",
+      "plate": "MAC0A123",
+      "manufactureYear": "2001"
+    },
+    {
+      "id": 2,
+      "name": "Pedro Paulo",
+      "birthDate": "16-01-2001",
+      "cpf":"11111111111",
+      "vehicule": "Uno",
+      "gender": "M",
+      "plate": "MAC0A123",
+      "manufactureYear": "1992"
+    }    
+  ],
+
+  "vehicules":[
+    "Gol",
+    "Fusca",
+    "Palio",
+    "Uno"
+  ],
+
+  "years":[
+    1991,
+    1992,
+    1993
+  ]
+
+}
