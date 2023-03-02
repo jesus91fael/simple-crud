@@ -3,7 +3,7 @@
     {
       "name": "Rafael",
       "birthDate": "1991-02-08T03:00:00.000Z",
-      "cpf": "11111111111",
+      "cpf": "111.111.111-11",
       "gender": "M",
       "vehicle": "Carro",
       "plate": "RRR9R99",
@@ -31,13 +31,13 @@
       "id": 3
     },
     {
-      "name": "Brienne",
-      "birthDate": "1960-01-01T03:00:00.000Z",
-      "cpf": "55555555552",
-      "gender": "F",
+      "name": "Maria",
+      "birthDate": "1987-01-08T03:00:00.000Z",
+      "cpf": "111.111.111-11",
+      "gender": "M",
       "vehicle": "Moto",
-      "plate": "RRR0001",
-      "manufactureYear": "1992",
+      "plate": "11111111",
+      "manufactureYear": "1994",
       "id": 4
     }
   ],

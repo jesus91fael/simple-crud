@@ -2,6 +2,7 @@ import styled from "styled-components"
 import DatePicker from "react-datepicker";
 import TextField from '@mui/material/TextField';
 import FormControl from "@mui/material/FormControl";
+import InputMask from "react-input-mask";
 
 export const SectionStyled = styled.section`
   width: 100%;  
@@ -73,8 +74,17 @@ export const InputBirthDateStyled = styled(DatePicker)`
   }
 `
 
-export const InputCpfStyled = styled(TextField)`
-  width: 200px;
+export const InputCpfStyled = styled(InputMask)`
+  width: 150px;
+  height: 56px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid rgba(153,139,130,.5);
+  font-size:18px;
+  &:focus{
+  border: 2px solid blue;
+  }
+
   @media (max-width: 550px) {
     width: 80%;
     margin: 0 auto;

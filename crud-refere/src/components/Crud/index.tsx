@@ -168,12 +168,16 @@ function Crud() {
         </ItemFormStyled>
         <ItemFormStyled>
           <LabelStyled htmlFor="cpf">CPF:</LabelStyled>
+
           <InputCpfStyled
-            id="cpf"
-            placeholder=""
-            variant="outlined"
-            {...register("cpf")}
+            mask={"999.999.999-99"}
+            alwaysShowMask={false}
+            maskPlaceholder=''
+            type={'text'}
+            placeholder="000.000.000-00"
+            {...register("cpf", { required: true })}
           />
+
           {errors?.cpf && (
             <ErrorMessageStyled>{errors.cpf.message}</ErrorMessageStyled>
           )}
@@ -222,6 +226,7 @@ function Crud() {
         </ItemFormStyled>
         <ItemFormStyled>
           <LabelStyled htmlFor="plate">Placa:</LabelStyled>
+          
           <InputPlateStyled
             id="plate"
             placeholder=""
