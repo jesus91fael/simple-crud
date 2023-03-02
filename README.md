@@ -4,7 +4,6 @@
 - ReactJs
 - Typescript
 - HTML
-- CSS
 - Styled-component
 - Axios
 - Material UI
