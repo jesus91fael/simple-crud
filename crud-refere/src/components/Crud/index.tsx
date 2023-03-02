@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from "react"
+import Button from "@mui/material/Button"
+import { AddClient, api, EditClient } from "../../lib/axios"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { schema } from "./validate"
+import { FormValues } from "./interface"
+import MenuItem from "@mui/material/MenuItem"
+import { Dayjs } from "dayjs"
+import TextField from "@mui/material/TextField"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import Snackbar from "@mui/material/Snackbar"
+import MuiAlert, { AlertProps } from "@mui/material/Alert"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
+import "react-datepicker/dist/react-datepicker.css"
 import {
   BoxButtonStyled,
   ErrorMessageStyled,
   FormStyled,
-  InputBirthDateStyled,
   InputCpfStyled,
   InputGenderStyled,
   InputNameStyled,
@@ -15,51 +27,64 @@ import {
   ItemFormStyled,
   LabelStyled,
   SectionStyled,
-} from "./styles";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useForm } from "react-hook-form";
-import { AddClient, api, EditClient } from "../../lib/axios";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./validate";
-import { FormValues } from "./interface";
-import MenuItem from "@mui/material/MenuItem";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Dayjs } from "dayjs";
-import TextField from "@mui/material/TextField";
+} from "./styles"
+import { useForm } from "react-hook-form"
+
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 
 function Crud() {
-  // const [startDate, setStartDate] = useState();
-  const [value, setValue] = React.useState<Dayjs | null>(null);
-  const [selectVehicle, setSelectVehicle] = useState("");
-  const [gender, setGender] = useState("");
-  const [year, setYear] = useState("");
-  const [vehicles, setVehicles] = useState([]);
-  const [years, setYears] = useState([]);
-  const [client, setClient] = useState<FormValues>();
+  const [value, setValue] = React.useState<Dayjs | null>(null)
+  const [selectVehicle, setSelectVehicle] = useState("")
+  const [gender, setGender] = useState("")
+  const [year, setYear] = useState("")
+  const [vehicles, setVehicles] = useState([])
+  const [years, setYears] = useState([])
+  const [client, setClient] = useState<FormValues>()
 
-  let clientId = localStorage.getItem("client-crud");
+  const [open, setOpen] = React.useState(false)
+
+  const handleClick = () => {
+    setOpen(true)
+  }
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return
+    }
+
+    setOpen(false)
+  }
+
+  let clientId = localStorage.getItem("client-crud")
 
   useEffect(() => {
     api.get("vehicules").then((response: any) => {
-      setVehicles(response.data);
-    });
-  }, []);
+      setVehicles(response.data)
+    })
+  }, [])
 
   useEffect(() => {
     api.get("years").then((response: any) => {
-      setYears(response.data);
-    });
-  }, []);
+      setYears(response.data)
+    })
+  }, [])
 
   useEffect(() => {
     if (clientId) {
       api.get(`dados/${clientId}`).then((response: any) => {
-        setClient(response.data);
-      });
+        setClient(response.data)
+      })
     }
-  }, [clientId]);
+  }, [clientId])
 
   const {
     register,
@@ -67,14 +92,13 @@ function Crud() {
     reset,
     formState: { errors },
   } = useForm<FormValues>({
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
     defaultValues: client,
-  });
+  })
 
   useEffect(() => {
-    // reset form with user data
     reset(client);
-  }, [client]);
+  }, [client, reset])
 
   const onSubmit = (e: any) => {
     const values = {
@@ -87,30 +111,36 @@ function Crud() {
       manufactureYear: e.manufactureYear
         ? e.manufactureYear
         : client?.manufactureYear,
-    };
+    }
     clientId ? EditClient(values, clientId) : AddClient(values);
+    handleClick();
     localStorage.clear();
     window.location.reload();
-  };
+  }
 
   const handleChangeVehicle = (event: SelectChangeEvent) => {
-    setSelectVehicle(event.target.value);
-  };
+    setSelectVehicle(event.target.value)
+  }
   const handleChangeYear = (event: SelectChangeEvent) => {
-    setYear(event.target.value);
-  };
+    setYear(event.target.value)
+  }
 
   const handleChangeGender = (event: SelectChangeEvent) => {
-    setGender(event.target.value);
-  };
+    setGender(event.target.value)
+  }
 
   const editCancel = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
+    localStorage.clear()
+    window.location.reload()
+  }
 
   return (
     <SectionStyled>
+      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Salvo com sucesso!
+        </Alert>
+      </Snackbar>
       <FormStyled onSubmit={handleSubmit(onSubmit)}>
         <ItemFormStyled>
           <LabelStyled htmlFor="name">Nome:</LabelStyled>
@@ -121,12 +151,13 @@ function Crud() {
         </ItemFormStyled>
         <ItemFormStyled>
           <LabelStyled htmlFor="birthDate">Data de Nascimento:</LabelStyled>
-
-          <LocalizationProvider dateAdapter={AdapterDayjs} >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+              inputFormat="DD/MM/YYYY"
+              views={["day", "month", "year"]}
               value={client?.birthDate ? client?.birthDate : value}
               onChange={(newValue: any) => {
-                setValue(newValue);
+                setValue(newValue)
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -240,7 +271,7 @@ function Crud() {
         </BoxButtonStyled>
       </FormStyled>
     </SectionStyled>
-  );
+  )
 }
 
-export default Crud;
+export default Crud

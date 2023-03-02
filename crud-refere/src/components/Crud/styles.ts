@@ -8,10 +8,10 @@ export const SectionStyled = styled.section`
   margin: 0 auto;
   border-bottom: 1px solid #afc7b9;
   padding: 10px 0;
-`;
+`
 
 export const FormStyled = styled.form`
-  width: 80%;
+  max-width: 1000px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,7 +20,7 @@ export const FormStyled = styled.form`
   @media (max-width: 435px) {
     flex-direction: column;
   }
-`;
+`
 
 export const ItemFormStyled = styled.div`
   display: flex;
@@ -29,21 +29,18 @@ export const ItemFormStyled = styled.div`
   align-items: flex-start;
   margin: 10px 20px;
   flex-basis: 33,33%;
-  /* @media (max-width: 600px) {
-    flex-basis: 50%;
-  } */
 
   @media (max-width: 550px) {
     padding: 20px 0x;
     width: 100%;
   }
-`;
+`
 
 export const LabelStyled = styled.label`
   text-align: left;
   font-size: 14px;
   width: 100%; 
-`;
+`
 
 export const InputNameStyled = styled(TextField)`
   width: 400px;
@@ -51,13 +48,13 @@ export const InputNameStyled = styled(TextField)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const ErrorMessageStyled = styled.span`
   color: red;
   font-size: 10px;
   margin: 2px 0 ;
-`;
+`
 
 export const InputBirthDateStyled = styled(DatePicker)`
   width: 150px;
@@ -74,7 +71,7 @@ export const InputBirthDateStyled = styled(DatePicker)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const InputCpfStyled = styled(TextField)`
   width: 200px;
@@ -82,7 +79,7 @@ export const InputCpfStyled = styled(TextField)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const InputGenderStyled = styled(FormControl)`
   width: 100px;
@@ -90,7 +87,7 @@ export const InputGenderStyled = styled(FormControl)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const InputVehiculeStyled = styled(FormControl)`
   width: 200px;
@@ -98,7 +95,7 @@ export const InputVehiculeStyled = styled(FormControl)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const InputyearStyled = styled(FormControl)`
   width: 100px;
@@ -106,7 +103,7 @@ export const InputyearStyled = styled(FormControl)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const InputPlateStyled = styled(TextField)`
   width: 200px;
@@ -114,7 +111,7 @@ export const InputPlateStyled = styled(TextField)`
     width: 80%;
     margin: 0 auto;
   }
-`;
+`
 
 export const BoxButtonStyled = styled.div`
   padding: 20px 40px;
@@ -122,4 +119,4 @@ export const BoxButtonStyled = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-`;
+`

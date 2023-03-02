@@ -1,10 +1,9 @@
-import React from "react";
-import Crud from "../../components/Crud";
-import Header from "../../components/Header";
-import Table from "../../components/Table";
+import React from "react"
+import Crud from "../../components/Crud"
+import Header from "../../components/Header"
+import Table from "../../components/Table"
 
 function Home() {
-
   return (
     <>
       <Header />
@@ -13,7 +12,7 @@ function Home() {
         <Table />
       </main>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home

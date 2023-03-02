@@ -2,12 +2,12 @@
   "dados": [
     {
       "name": "rafa55",
-      "birthDate": "2013-03-12T03:00:00.000Z",
+      "birthDate": "1923-03-12T03:00:00.000Z",
       "cpf": "22222222221",
       "gender": "M",
       "vehicle": "Carro",
       "plate": "RRR2222",
-      "manufactureYear": 1991,
+      "manufactureYear": "1991",
       "id": 2
     },
     {
@@ -59,26 +59,6 @@
       "plate": "RRR0001",
       "manufactureYear": 1994,
       "id": 8
-    },
-    {
-      "name": "rafa11111111",
-      "birthDate": "2000-02-08T03:00:00.000Z",
-      "cpf": "10330270656",
-      "gender": "F",
-      "vehicle": "Carro",
-      "plate": "RRR0001",
-      "manufactureYear": 1993,
-      "id": 9
-    },
-    {
-      "name": "BB Rafa",
-      "birthDate": "2023-02-05T03:00:00.000Z",
-      "cpf": "22222222222",
-      "gender": "F",
-      "vehicle": "Moto",
-      "plate": "RRR0001",
-      "manufactureYear": 1994,
-      "id": 10
     }
   ],
   "vehicules": [

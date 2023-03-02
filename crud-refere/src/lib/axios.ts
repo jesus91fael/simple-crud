@@ -11,11 +11,11 @@ export const AddClient = (xMeet: object) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(xMeet),
-  };
+  }
   return fetch("http://localhost:3000/dados", options)
     .then((response: any) => response.json())
-    .then(() => {});
-};
+    .then(() => {})
+}
 
 
 export const EditClient = (dados: object, id: any) => {
@@ -25,9 +25,9 @@ export const EditClient = (dados: object, id: any) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(dados),
-  };
+  }
   return fetch(`http://localhost:3000/dados/${id}`, options)
     .then((response: any) => response.json())
     .then(() => {
-    });
-};
+    })
+}

@@ -8,5 +8,4 @@ export interface FormValues {
   late: string
   manufactureYear: string
   id: number
-};
-
+}
