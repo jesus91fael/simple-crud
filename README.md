@@ -1,7 +1,7 @@
 # Projeto Cadastra Cliente
 
 ### Foi utilizado no projeto
--ReactJs
+- ReactJs
 - Typescript
 - HTML
 - CSS
