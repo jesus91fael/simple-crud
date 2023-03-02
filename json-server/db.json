@@ -1,64 +1,44 @@
 {
   "dados": [
     {
-      "name": "rafa55",
-      "birthDate": "1923-03-12T03:00:00.000Z",
-      "cpf": "22222222221",
+      "name": "Rafael",
+      "birthDate": "1991-02-08T03:00:00.000Z",
+      "cpf": "11111111111",
       "gender": "M",
       "vehicle": "Carro",
+      "plate": "RRR9R99",
+      "manufactureYear": "2001",
+      "id": 1
+    },
+    {
+      "name": "Tony Stark",
+      "birthDate": "1970-01-02T03:00:00.000Z",
+      "cpf": "22222222222",
+      "gender": "M",
+      "vehicle": "Moto",
       "plate": "RRR2222",
       "manufactureYear": "1991",
       "id": 2
     },
     {
-      "name": "Tony Stark",
-      "birthDate": "1989-02-08T03:00:00.000Z",
-      "cpf": "11111111111",
-      "vehicle": "Carro",
+      "name": "Wandinha",
+      "birthDate": "2000-01-01T03:00:00.000Z",
+      "cpf": "33333333333",
       "gender": "F",
-      "plate": "RRR0001",
-      "manufactureYear": "2001",
-      "id": 4
-    },
-    {
-      "name": "Diego Silva",
-      "birthDate": "1991-02-08T03:00:00.000Z",
-      "cpf": "11111111111",
       "vehicle": "Moto",
-      "gender": "F",
-      "plate": "RRR0001",
+      "plate": "RRR2222",
       "manufactureYear": "2001",
-      "id": 5
+      "id": 3
     },
     {
       "name": "Brienne",
-      "birthDate": "2000-02-01T03:00:00.000Z",
-      "cpf": "11111111111",
+      "birthDate": "1960-01-01T03:00:00.000Z",
+      "cpf": "55555555552",
       "gender": "F",
       "vehicle": "Moto",
       "plate": "RRR0001",
-      "manufactureYear": 1996,
-      "id": 6
-    },
-    {
-      "name": "rafa",
-      "birthDate": "2023-03-02T03:00:00.000Z",
-      "cpf": "22222222222",
-      "gender": "F",
-      "vehicle": "Moto",
-      "plate": "RRR0001",
-      "manufactureYear": 1995,
-      "id": 7
-    },
-    {
-      "name": "bbcc",
-      "birthDate": "2000-03-02T03:00:00.000Z",
-      "cpf": "10330270656",
-      "gender": "M",
-      "vehicle": "Carro",
-      "plate": "RRR0001",
-      "manufactureYear": 1994,
-      "id": 8
+      "manufactureYear": "1992",
+      "id": 4
     }
   ],
   "vehicules": [
